@@ -2,7 +2,7 @@
   "name": "buycoins-github-profile",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "default": "src/pages/index.html",
   "scripts": {
     "start": "parcel src/pages/*.html",
     "build": "parcel build src/pages/*.html --dist-dir ./dist"
