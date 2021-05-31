@@ -1,0 +1,19 @@
+{
+  "name": "buycoins-github-profile",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel src/pages/*.html",
+    "build": "parcel build src/pages/*.html --dist-dir ./dist"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "core-js": "^3.13.1",
+    "parcel": "^2.0.0-beta.2",
+    "regenerator-runtime": "^0.13.7"
+  }
+}
