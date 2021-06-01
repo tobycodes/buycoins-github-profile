@@ -7,16 +7,16 @@ class ProfileInfoView extends View {
   _generateMarkup() {
     return `
       <img
-        src="${this._data.avatarUrl}"
-        alt="${this._data.name}"
+        src="${this._data.avatarUrl || ""}"
+        alt="${this._data.name || ""}"
         class="profile-image"
       />
       <div class="profile-info">
-        <h4 class="profile-name">${this._data.name}</h4>
-        <span class="profile-login">${this._data.login}</span>
+        <h4 class="profile-name">${this._data.name || ""}</h4>
+        <span class="profile-login">${this._data.login || ""}</span>
       </div>
       <div class="profile-bio">
-        ${this._data.bio}
+        ${this._data.bio || ""}
       </div>
     `;
   }

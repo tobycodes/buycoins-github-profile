@@ -4,7 +4,7 @@ import "regenerator-runtime/runtime";
 import * as model from "../model";
 import { debounce } from "../utils/helpers";
 import profileInfo from "../view/profileInfo";
-import repoResultsView from "../view/repoResultsView";
+import repoResults from "../view/repoResults";
 import searchForm from "../view/searchForm";
 import searchResults from "../view/searchResults";
 
@@ -55,14 +55,14 @@ const handleFetchRepos = async function () {
   if (!username) return;
 
   try {
-    repoResultsView.renderSpinner();
+    repoResults.renderSpinner();
 
     await model.getUserRepos(username);
 
-    repoResultsView.render(model.state.repositories);
+    repoResults.render(model.state.repositories);
   } catch (error) {
     console.error(error);
-    repoResultsView.renderError();
+    repoResults.renderError();
   }
 };
 
@@ -82,11 +82,12 @@ const handleDropdownClose = function () {
 const handleMobileNavToggle = function () {
   const navBtn = document.querySelector(".nav-links-mobile-button");
 
-  if (!navBtn) return;
+  if (navBtn)
+    navBtn.addEventListener("click", () => {
+      const mobileNav = document.querySelector(".nav-links-mobile");
 
-  const mobileNav = document.querySelector(".nav-links-mobile");
-
-  navBtn.addEventListener("click", () => mobileNav.classList.toggle("hidden"));
+      if (mobileNav) mobileNav.classList.toggle("hidden");
+    });
 };
 
 function init() {

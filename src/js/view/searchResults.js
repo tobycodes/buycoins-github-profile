@@ -12,16 +12,18 @@ class SearchResultsView extends View {
     return this._data
       .map(
         (user) => `
-        <li class="search-result" role="option">
-          <div class="search-result-value">
-            <div class="search-result-image">
-              <img src="${user.avatarUrl}"></img>
+        <li role="option">
+          <a class="search-result" href="/profile?username=${user.login}">
+            <div class="search-result-value">
+              <div class="search-result-image">
+                <img src="${user.avatarUrl}" alt="${user.login}" />
+              </div>
+              <span class="search-result-text">${user.login}</span>
             </div>
-            <span class="search-result-text">${user.login}</span>
-          </div>
-          <button type="button" class="search-result-button">
-            <a href="/profile?username=${user.login}">View</a>
-          </button>
+            <button type="button" class="search-result-button">
+              View
+            </button>
+          </a>
         </li>
     `
       )

@@ -6,6 +6,7 @@ import forkIcon from "url:../../assets/icons/git-fork.svg";
 class RepoResultsView extends View {
   _parentElem = document.querySelector("#repo-results");
   _message = "No repositories found.";
+  _errorMessage = "User not found.";
   _repoCountElem = document.querySelector("#repo-count");
 
   _generateMarkup() {
@@ -19,37 +20,17 @@ class RepoResultsView extends View {
           return `
         <li class="repo-result border-bottom-grey">
           <div class="repo-info">
-            <span class="name"><a href="${repo.url}">${repo.name}</a></span>
+            <span class="name"><a href="${repo.url}" target="_blank">${
+            repo.name
+          }</a></span>
             <span class="description">
               ${repo.description ?? ""}
             </span>
             <ul class="attributes">
-              <li class="attribute">
-                <span class="attribute-lang" style="background-color: ${
-                  repo.languages?.nodes[0]?.color
-                }"></span>
-                <span class="attribute-value">${
-                  repo.languages?.nodes[0]?.name
-                }</span>
-              </li>
-              <li class="attribute">
-                <div class="attribute-icon">
-                    <img src="${starIcon}" />
-                </div>
-                <span class="attribute-value">${repo.stargazerCount}</span>
-              </li>
-              <li class="attribute">
-                <div class="attribute-icon">
-                    <img src="${forkIcon}" />
-                </div>
-                <span class="attribute-value">${repo.forkCount}</span>
-              </li>
-              <li class="attribute">
-                <span class="attribute-icon">Updated on</span>
-                <span class="attribute-value">${formatDate(
-                  repo.updatedAt
-                )}</span>
-              </li>
+                ${this._generateLanguageMarkup(repo.languages)}
+                ${this._generateStarMarkup(repo.stargazerCount) || ""}
+                ${this._generateForkMarkup(repo.forkCount) || ""}
+                ${this._generateForkMarkup(formatDate(repo.updatedAt)) || ""}
             </ul>
           </div>
           <div class="repo-star">
@@ -82,6 +63,47 @@ class RepoResultsView extends View {
           <strong>public</strong> repositories
         </span>
       </div>
+    `;
+  }
+
+  _generateLanguageMarkup(languages) {
+    if (!languages.length) return "";
+
+    return `
+      <li class="attribute">
+        <span class="attribute-lang" style="background-color: ${languages?.nodes[0]?.color}"></span>
+        <span class="attribute-value">${languages?.nodes[0]?.name}</span>
+      </li>
+    `;
+  }
+
+  _generateStarMarkup(count) {
+    return `
+      <li class="attribute">
+        <div class="attribute-icon">
+            <img src="${starIcon}" />
+        </div>
+        <span class="attribute-value">${count}</span>
+      </li>
+    `;
+  }
+
+  _generateForkMarkup(count) {
+    return `
+      <li class="attribute">
+        <div class="attribute-icon">
+            <img src="${forkIcon}" />
+        </div>
+        <span class="attribute-value">${count}</span>
+      </li>
+    `;
+  }
+  _generateDateMarkup(date) {
+    return `
+      <li class="attribute">
+        <span class="attribute-icon">Updated on</span>
+        <span class="attribute-value">${date}</span>
+      </li>
     `;
   }
 }
